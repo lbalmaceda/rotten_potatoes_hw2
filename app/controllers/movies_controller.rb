@@ -7,7 +7,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    p "order  #{params[:order]}"
+    p "order #{params[:order]}"
     @all_ratings = Movie.all_ratings
     ratings = params[:ratings]
     order = params[:order]
@@ -19,9 +19,9 @@ class MoviesController < ApplicationController
     end
 
     if (order=="release_date")
-      @movies = @movies.order(:release_date)
+      @movies = @movies.order("release_date ASC")
     elsif (order=="title")
-      @movies = @movies.order(:title)
+      @movies = @movies.order("title ASC")
     end      
     
   end
