@@ -7,13 +7,23 @@ class MoviesController < ApplicationController
   end
 
   def index
-    p "order #{params[:order]}"
+    #init the hash
+    params[:ratings] = Hash.new unless params[:ratings] != nil
+    session[:ratings] = Hash.new unless session[:ratings] != nil
+
+    p ">>P.ORDER #{params[:order]}"
+    p ">>P.RATINGS #{params[:ratings]}"
+    p ">>S.ORDER #{session[:order]}"
+    p ">>S.RATINGS #{session[:ratings]}"
     @all_ratings = Movie.all_ratings
-    ratings = params[:ratings]
     order = params[:order]
 
-    if (ratings!=nil)
-      @movies = Movie.where(:rating=>ratings.keys)
+    if params[:ratings].value?("1")
+      #at least 1 checked checkbox.
+      session[:ratings] = params[:ratings]
+      @movies = Movie.where(:rating=>params[:ratings].keys)
+    elsif session[:ratings].value? ("1")
+      @movies = Movie.where(:rating=>session[:ratings].keys)
     else
       @movies = Movie.all
     end
@@ -22,7 +32,7 @@ class MoviesController < ApplicationController
       @movies = @movies.order("release_date ASC")
     elsif (order=="title")
       @movies = @movies.order("title ASC")
-    end      
+    end
     
   end
 
