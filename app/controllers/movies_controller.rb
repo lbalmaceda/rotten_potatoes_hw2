@@ -26,7 +26,6 @@ class MoviesController < ApplicationController
     elsif session[:ratings].value? ("1")
       flash.keep
       redirect_to movies_path(:ratings => session[:ratings], :order => session[:order])
-     # @movies = Movie.where(:rating=>session[:ratings].keys)
     else
       @movies = Movie.all
     end
