@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
     p ">>S.RATINGS #{session[:ratings]}"
     
     @all_ratings = Movie.all_ratings
-    session[:order] = params[:order]
+    session[:order] = params[:order] if params[:order]
 
     if params[:ratings].value?("1")
       #at least 1 checked checkbox.
