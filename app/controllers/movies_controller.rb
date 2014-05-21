@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
   def index
     #init the hash
     params[:ratings] ||= Hash.new
-    session[:ratings] ||= Hash.new
+    session[:ratings] ||= Movie.all_ratings
 
     p ">>P.ORDER #{params[:order]}"
     p ">>P.RATINGS #{params[:ratings]}"
